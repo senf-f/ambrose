@@ -26,7 +26,14 @@ public class App
     public static void main( String[] args )
     {
         System.setProperty("webdriver.chrome.driver", "C:\\tools\\chromedriver83\\chromedriver.exe");
+
+        System.out.println(System.getProperty("user.name"));
+
+
         ChromeOptions options = new ChromeOptions();
+        if(!System.getProperty("user.name").equals("MateMrse")){
+            options.setBinary("/app/.apt/usr/bin/google-chrome-stable");
+        }
         options.addArguments("headless");
         WebDriver driver = new ChromeDriver(options);
         driver.get("http://www.stampar.hr/hr/peludna-grad/1");
