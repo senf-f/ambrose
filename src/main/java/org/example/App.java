@@ -7,6 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -25,24 +28,24 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.setProperty("webdriver.chrome.driver", "C:\\tools\\chromedriver83\\chromedriver.exe");
-
-        System.out.println(System.getProperty("user.name"));
-
-
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\mate.mrse\\webdriver\\chromedriver\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
-        if(!System.getProperty("user.name").equals("MateMrse")){
-            options.setBinary("/app/.apt/usr/bin/google-chrome-stable");
-        }
+//        if(!System.getProperty("user.name").equals("MateMrse")){
+//            options.setBinary("/app/.apt/usr/bin/google-chrome-stable");
+//        }
         options.addArguments("headless");
         WebDriver driver = new ChromeDriver(options);
-        driver.get("http://www.stampar.hr/hr/peludna-grad/1");
-        List<WebElement> elements = driver.findElements(By.xpath("//div[a[contains(., 'Ambrozija')]]//following-sibling::div[@class='clearfix vrijednost']"));
+        driver.get("https://stampar.hr/hr/peludna-prognoza");
+        driver.findElement(By.cssSelector("#perpetuum-cookie-bar .perpetuum-button-dismiss a")).click();
+        // Select from dropdown
+        String grad = "Zagreb";
+        Select izbornik = new Select(driver.findElement(By.cssSelector("select[id^='edit-title']")));
+        izbornik.selectByVisibleText(grad);
+        String xpath = "//div[@class='biljka-naslov'][contains(., 'Ambrozija')]/following-sibling::div//div[@class='mjerenje-container']//div[contains(@class, 'field-field-vrijednost')][2]";
+
         LocalDate date = LocalDate.now(ZoneId.of("Europe/Zagreb"));
         LocalTime time = LocalTime.now(ZoneId.of("Europe/Zagreb"));
-        String koncentracijaAmbrozije = elements.get(0).getText();
-
-        //temp
+        String koncentracijaAmbrozije = new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath))).getText();
         System.out.println(date);
         System.out.println(time);
         System.out.println(koncentracijaAmbrozije);
