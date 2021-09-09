@@ -15,11 +15,16 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 
 public class App {
     public static void main(String[] args) {
+
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\mate.mrse\\webdriver\\chromedriver\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
 //        if(!System.getProperty("user.name").equals("MateMrse")){
@@ -41,9 +46,8 @@ public class App {
             LocalDate date = LocalDate.now(ZoneId.of("Europe/Zagreb"));
             LocalTime time = LocalTime.now(ZoneId.of("Europe/Zagreb"));
             String koncentracijaAmbrozije = new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath))).getText();
-
             try {
-                CSVWriter writer = new CSVWriter(new FileWriter("output.csv", true));
+                CSVWriter writer = new CSVWriter(new FileWriter(year+"-"+month+" ambrozija.csv", true));
                 writer.writeNext(new String[]{koncentracijaAmbrozije, date.toString(), time.toString(), grad}, false);
                 writer.flush();
                 writer.close();
