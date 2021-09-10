@@ -31,6 +31,10 @@ public class App {
 //            options.setBinary("/app/.apt/usr/bin/google-chrome-stable");
 //        }
         options.addArguments("headless");
+        // For heroku
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        //
         WebDriver driver = new ChromeDriver(options);
         driver.get("https://stampar.hr/hr/peludna-prognoza");
         driver.findElement(By.cssSelector("#perpetuum-cookie-bar .perpetuum-button-dismiss a")).click();
