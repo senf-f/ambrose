@@ -41,7 +41,7 @@ public class App {
         // Select from dropdown
         String grad;
         String koncentracijaAmbrozije = "0";
-        List<String> gradovi = Arrays.asList("Zagreb", "Split", "Pula");
+        List<String> gradovi = Arrays.asList("Zagreb", "Split", "Pula", "Zadar", "Dubrovnik");
         for (String s : gradovi) {
             grad = s;
             Select izbornik = new Select(driver.findElement(By.cssSelector("select[id^='edit-title']")));
@@ -55,7 +55,7 @@ public class App {
                 koncentracijaAmbrozije = new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath))).getText();
             }
             try {
-                CSVWriter writer = new CSVWriter(new FileWriter(year+"-"+month+" ambrozija.csv", true));
+                CSVWriter writer = new CSVWriter(new FileWriter(year+"-"+month+" "+grad+" - ambrozija.csv", true));
                 writer.writeNext(new String[]{koncentracijaAmbrozije, date.toString(), time.toString(), grad}, false);
                 writer.flush();
                 writer.close();
