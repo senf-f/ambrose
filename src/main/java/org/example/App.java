@@ -40,7 +40,7 @@ public class App {
         driver.findElement(By.cssSelector("#perpetuum-cookie-bar .perpetuum-button-dismiss a")).click();
         // Select from dropdown
         String grad;
-        String koncentracijaAmbrozije = "0";
+        String koncentracijaAmbrozije;
         List<String> gradovi = Arrays.asList("Zagreb", "Split", "Pula", "Zadar", "Dubrovnik");
         for (String s : gradovi) {
             grad = s;
@@ -53,6 +53,8 @@ public class App {
             int rezultat = driver.findElements(By.xpath(xpath)).size();
             if(rezultat>0){
                 koncentracijaAmbrozije = new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath))).getText();
+            } else {
+                koncentracijaAmbrozije = "0.0";
             }
             try {
                 CSVWriter writer = new CSVWriter(new FileWriter(year+"-"+month+" "+grad+" - ambrozija.csv", true));
