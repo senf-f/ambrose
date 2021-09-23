@@ -1,6 +1,7 @@
 package org.example;
 
 import com.opencsv.CSVWriter;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -25,7 +26,7 @@ public class App {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
 
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\mate.mrse\\webdriver\\chromedriver\\chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
 //        if(!System.getProperty("user.name").equals("MateMrse")){
 //            options.setBinary("/app/.apt/usr/bin/google-chrome-stable");
